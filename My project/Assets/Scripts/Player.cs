@@ -96,19 +96,18 @@ public class Player : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("Obstacle")) {
-            Debug.Log("Hit Obstacle!");
+            // Debug.Log("Hit Obstacle!");
             GameManager.Instance.GameOver();
         } else if (other.gameObject.CompareTag("Scoring")) {
             // Check if this scoring zone has already been scored
             ScoringZoneTracker tracker = other.GetComponent<ScoringZoneTracker>();
             if (tracker != null && !tracker.HasScored()) {
-                Debug.Log("Scored! Current score: " + (GameManager.Instance.GetScore() + 1));
+                // Debug.Log("Scored! Current score: " + (GameManager.Instance.GetScore() + 1));
                 GameManager.Instance.IncreaseScore();
                 tracker.MarkAsScored();
             }
-        } else {
-            Debug.Log("Trigger entered with: " + other.gameObject.name + " (Tag: " + other.gameObject.tag + ")");
         }
+        // Removed generic trigger log to reduce console noise
     }
 
 }

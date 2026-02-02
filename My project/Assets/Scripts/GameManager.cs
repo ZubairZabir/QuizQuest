@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOver;
     
     private int score;
+    private bool isGamePlaying = false;
+    private QuizManager quizManager;
+
+    public bool IsGamePlaying => isGamePlaying;
 
     private void Awake()
     {
@@ -23,6 +27,12 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         Pause();
+    }
+
+    private void Start()
+    {
+        // Find QuizManager in the scene
+        quizManager = FindObjectOfType<QuizManager>();
     }
 
     private void OnDestroy()
@@ -43,11 +53,18 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         player.enabled = true;
+        isGamePlaying = true;
 
         Pipes[] pipes = FindObjectsByType<Pipes>(FindObjectsSortMode.None);
 
         for( int i = 0; i < pipes.Length; i++) {
             Destroy(pipes[i].gameObject);
+        }
+
+        // Start quiz loop when game starts
+        if (quizManager != null)
+        {
+            quizManager.StartQuizLoop();
         }
     }
 
@@ -55,12 +72,20 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         player.enabled = false;
+        isGamePlaying = false;
     }
 
     public void GameOver()
     {
         gameOver.SetActive(true);
         playButton.SetActive(true);
+        isGamePlaying = false;
+
+        // Stop quiz loop when game is over
+        if (quizManager != null)
+        {
+            quizManager.StopQuizLoop();
+        }
 
         Pause();
     }
@@ -70,6 +95,12 @@ public class GameManager : MonoBehaviour
         score++;
         if (scoreText != null) {
             scoreText.text = score.ToString();
+        }
+        
+        // Notify QuizManager that a pipe was passed
+        if (quizManager != null)
+        {
+            quizManager.OnPipePassed();
         }
     }
 

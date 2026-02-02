@@ -68,7 +68,7 @@ public class Pipes : MonoBehaviour
             // Add a component to track if this zone has been scored
             ScoringZoneTracker tracker = scoringZone.AddComponent<ScoringZoneTracker>();
             
-            Debug.Log("Created scoring zone for pipes: " + gameObject.name);
+            // Debug.Log("Created scoring zone for pipes: " + gameObject.name);
         } else {
             // Make sure existing scoring zone is set up correctly
             BoxCollider2D collider = scoringZone.GetComponent<BoxCollider2D>();

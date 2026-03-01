@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Pipes : MonoBehaviour
 {
@@ -14,6 +14,11 @@ public class Pipes : MonoBehaviour
         leftEdge = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
         top.position += Vector3.up * gap / 2;
         bottom.position += Vector3.down * gap / 2;
+    }
+
+    public float GetMiddleY()
+    {
+        return (top.position.y + bottom.position.y) / 2f;
     }
 
     private void Update()

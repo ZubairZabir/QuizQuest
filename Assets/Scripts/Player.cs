@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        if (controls == null)
+            controls = new QuizQuestInput();
+
         Vector3 position = transform.position;
         position.y = 0f;
         transform.position = position;
@@ -60,6 +63,19 @@ public class Player : MonoBehaviour
         direction = Vector3.up * strength;
     }
 
+    public void ResetPosition()
+    {
+        Vector3 position = transform.position;
+        position.y = 0f;
+        transform.position = position;
+        direction = Vector3.zero;
+    }
+
+    public void ResetVelocity()
+    {
+        direction = Vector3.zero;
+    }
+
     private void AnimateSprite()
     {
         spriteIndex++;
@@ -76,7 +92,8 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Obstacle")) {
-            GameManager.Instance.GameOver();
+            direction = Vector3.zero;
+            GameManager.Instance.LoseLife();
         } else if (other.gameObject.CompareTag("Scoring")) {
             GameManager.Instance.IncreaseScore();
         }

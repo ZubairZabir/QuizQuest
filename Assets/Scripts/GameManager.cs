@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         player.enabled = true;
 
-        Pipes[] pipes = FindObjectsOfType<Pipes>();
+        Pipes[] pipes = FindObjectsByType<Pipes>(FindObjectsSortMode.None);
 
         for (int i = 0; i < pipes.Length; i++) {
             Destroy(pipes[i].gameObject);

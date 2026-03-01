@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector3 direction;
     private int spriteIndex;
+    private QuizQuestInput controls;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        controls = new QuizQuestInput();
     }
 
     private void Start()
@@ -27,12 +30,19 @@ public class Player : MonoBehaviour
         position.y = 0f;
         transform.position = position;
         direction = Vector3.zero;
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            direction = Vector3.up * strength;
+        if (controls.GamePlay.Jump.triggered)
+        {
+            Jump();
         }
 
         // Apply gravity and update the position
@@ -43,6 +53,11 @@ public class Player : MonoBehaviour
         Vector3 rotation = transform.eulerAngles;
         rotation.z = direction.y * tilt;
         transform.eulerAngles = rotation;
+    }
+
+    private void Jump()
+    {
+        direction = Vector3.up * strength;
     }
 
     private void AnimateSprite()

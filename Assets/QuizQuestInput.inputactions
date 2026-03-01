@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "QuizQuestInput",
+    "maps": [
+        {
+            "name": "GamePlay",
+            "id": "91764f66-5747-4141-bd30-fdeca2fe9c2f",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "01fa430d-8388-4f0d-81e3-0794aefabd91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bf572355-5d41-40f7-ba3c-4dda2d613d79",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

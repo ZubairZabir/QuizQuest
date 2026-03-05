@@ -15,10 +15,12 @@ public class QuestionManager : MonoBehaviour
     private List<Question> remainingQuestions = new List<Question>();
     private Question currentQuestion;
     private bool questionActive = false;
+    private TextAlignmentOptions originalAlignment;
 
     private void Start()
     {
         remainingQuestions = new List<Question>(questions);
+        originalAlignment = questionText.alignment;
 
         // Wire button clicks automatically
         for (int i = 0; i < answerButtons.Length; i++)
@@ -63,8 +65,15 @@ public class QuestionManager : MonoBehaviour
         currentQuestion = remainingQuestions[randomIndex];
         remainingQuestions.RemoveAt(randomIndex);
 
+        questionText.alignment = originalAlignment;
         questionText.color = Color.white;
         questionText.text = currentQuestion.questionText;
+
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            if (answerButtons[i] != null)
+                answerButtons[i].gameObject.SetActive(true);
+        }
 
         for (int i = 0; i < answerTexts.Length; i++)
         {
@@ -91,6 +100,14 @@ public class QuestionManager : MonoBehaviour
         if (!questionActive) return;
 
         questionActive = false;
+
+        questionText.alignment = TextAlignmentOptions.Center;
+
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            if (answerButtons[i] != null)
+                answerButtons[i].gameObject.SetActive(false);
+        }
 
         if (index == currentQuestion.correctIndex)
         {

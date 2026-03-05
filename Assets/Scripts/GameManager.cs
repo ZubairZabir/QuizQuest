@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        gameOver.SetActive(false);
         Pause();
     }
 
@@ -60,6 +61,10 @@ public class GameManager : MonoBehaviour
 
             player.ResetPosition();
 
+            QuestionManager qm = FindObjectOfType<QuestionManager>();
+            if (qm != null)
+                qm.enabled = true;
+
             Pipes[] pipes = FindObjectsByType<Pipes>(FindObjectsSortMode.None);
             for (int i = 0; i < pipes.Length; i++) {
                 Destroy(pipes[i].gameObject);
@@ -74,6 +79,10 @@ public class GameManager : MonoBehaviour
     {
         playButton.SetActive(true);
         gameOver.SetActive(true);
+
+        QuestionManager qm = FindObjectOfType<QuestionManager>();
+        if (qm != null)
+            qm.enabled = false;
 
         Pause();
     }

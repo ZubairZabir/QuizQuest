@@ -1335,13 +1335,13 @@ MonoBehaviour:
   - {fileID: 2143597105}
   - {fileID: 193701875}
   questions:
-  - questionText: What is 5 + 3?
+  - questionText: What is my name?
     answers:
-    - 6
-    - 7
+    - Zubair
+    - Dr. Tisha
     - 8
     - 9
-    correctIndex: 2
+    correctIndex: 0
 --- !u!4 &918959634
 Transform:
   m_ObjectHideFlags: 0

@@ -573,8 +573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Which sorting algorithm repeatedly compares adjacent elements and swaps
-    them if they are in the wrong order?
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -608,7 +607,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -618,7 +617,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1336,80 +1335,78 @@ MonoBehaviour:
   - {fileID: 2143597105}
   - {fileID: 193701875}
   questions:
-  - questionText: What is the index of the first element in a Java array?
+  - questionText: What is the base case in recursion?
     answers:
-    - 0
-    - 1
-    - -1
-    - Depends on array size
+    - The first call of the function
+    - The condition that stops recursion
+    - The recursive call
+    - The loop inside recursion
+    correctIndex: 1
+  - questionText: 'What does the following method compute? Code: int f(int n){  
+      if(n == 0) return 1;   return n * f(n-1); } For input n = 4 '
+    answers:
+    - 4
+    - 10
+    - 24
+    - 16
+    correctIndex: 2
+  - questionText: 'Binary search requires the array to be:'
+    answers:
+    - Random
+    - Sorted
+    - Reversed
+    - Unique values only
+    correctIndex: 1
+  - questionText: What is the time complexity of binary search?
+    answers:
+    - O(n)
+    - "O(n\xB2)"
+    - O(log n)
+    - O(1)
+    correctIndex: 2
+  - questionText: What is the time complexity of recursive factorial?
+    answers:
+    - O(1)
+    - O(log n)
+    - O(n)
+    - "O(n\xB2)"
+    correctIndex: 2
+  - questionText: What is the space complexity of a recursive factorial function?
+    answers:
+    - O(1)
+    - O(log n)
+    - O(n)
+    - "O(n\xB2)"
+    correctIndex: 2
+  - questionText: 'If binary search runs on an array of size 1024, the maximum number
+      of comparisons is about:'
+    answers:
+    - 10
+    - 100
+    - 512
+    - 1024
     correctIndex: 0
-  - questionText: 'What does the following code print? int[] arr = {3, 5, 7}; System.out.println(arr[1]); '
+  - questionText: 'Each recursive call is stored in:'
     answers:
+    - Heap
+    - Stack
+    - Queue
+    - Array
+    correctIndex: 1
+  - questionText: 'What will this code return? Code: binarySearch([2,4,6,8,10], 8) '
+    answers:
+    - 2
     - 3
-    - 5
-    - 7
-    - Error
+    - 4
+    - -1
     correctIndex: 1
-  - questionText: Which sorting algorithm repeatedly compares adjacent elements and
-      swaps them if they are in the wrong order?
+  - questionText: In binary search, what happens when target < middle element?
     answers:
-    - Selection Sort
-    - Bubble Sort
-    - Insertion Sort
-    - Merge Sort
+    - Search right half
+    - Search left half
+    - Restart search
+    - Stop searching
     correctIndex: 1
-  - questionText: After the first pass of Bubble Sort, where does the largest element
-      move?
-    answers:
-    - Beginning of the array
-    - Middle of the array
-    - End of the array
-    - It stays in place
-    correctIndex: 2
-  - questionText: Which sorting algorithm selects the smallest element and places
-      it in the correct position each pass?
-    answers:
-    - Bubble Sort
-    - Selection Sort
-    - Insertion Sort
-    - Quick Sort
-    correctIndex: 1
-  - questionText: 'Insertion Sort builds the sorted list by:'
-    answers:
-    - Swapping random elements
-    - Comparing only the first and last elements
-    - Inserting elements into the correct position in the sorted portion
-    - Dividing the array into two halves
-    correctIndex: 2
-  - questionText: 'How many elements are in the array? int[] arr = new int[8]; '
-    answers:
-    - 7
-    - 8
-    - 9
-    - Undefined
-    correctIndex: 1
-  - questionText: What happens if you try to access arr[arr.length]?
-    answers:
-    - Returns last element
-    - Returns 0
-    - ArrayIndexOutOfBoundsException
-    - Compilation error
-    correctIndex: 2
-  - questionText: Which sorting algorithm generally performs the fewest swaps?
-    answers:
-    - Bubble Sort
-    - Selection Sort
-    - Insertion Sort
-    - All perform the same
-    correctIndex: 1
-  - questionText: If the array is already sorted, which algorithm performs the least
-      work?
-    answers:
-    - Bubble Sort (with swap check)
-    - . Selection Sort
-    - Insertion Sort
-    - Both A and C
-    correctIndex: 3
 --- !u!4 &918959634
 Transform:
   m_ObjectHideFlags: 0
@@ -1507,7 +1504,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1108023442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 918959632}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1108023442
 MonoBehaviour:
   m_ObjectHideFlags: 0

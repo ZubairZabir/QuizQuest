@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -80,11 +81,19 @@ public class GameManager : MonoBehaviour
         playButton.SetActive(true);
         gameOver.SetActive(true);
 
-        QuestionManager qm = FindObjectOfType<QuestionManager>();
+        QuestionManager qm = FindFirstObjectByType<QuestionManager>();
         if (qm != null)
             qm.enabled = false;
 
         Pause();
+        StartCoroutine(ReturnToMainMenuAfterDelay(2f));
+    }
+
+    private System.Collections.IEnumerator ReturnToMainMenuAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void LoseLife()
@@ -151,6 +160,18 @@ public class GameManager : MonoBehaviour
     {
         score++;
         scoreText.text = score.ToString();
+    }
+
+    public void DeductLife()
+    {
+        lives--;
+        livesText.text = "Lives: " + lives;
+    }
+
+    public void AddLife()
+    {
+        lives++;
+        livesText.text = "Lives: " + lives;
     }
 
 }

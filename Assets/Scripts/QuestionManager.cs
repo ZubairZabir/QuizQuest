@@ -16,18 +16,27 @@ public class QuestionManager : MonoBehaviour
     private Question currentQuestion;
     private bool questionActive = false;
     private TextAlignmentOptions originalAlignment;
+    private int correctStreak = 0;
 
     private void Start()
     {
         remainingQuestions = new List<Question>(questions);
         originalAlignment = questionText.alignment;
 
-        // Wire button clicks automatically
+        Debug.Log("QuestionManager Start. Buttons: " + answerButtons.Length);
+
         for (int i = 0; i < answerButtons.Length; i++)
         {
             int index = i;
             if (answerButtons[i] != null)
+            {
+                Debug.Log("Wiring button index: " + index + " -> " + answerButtons[i].name);
                 answerButtons[i].onClick.AddListener(() => Answer(index));
+            }
+            else
+            {
+                Debug.Log("Button at index " + i + " is NULL");
+            }
         }
 
         HideQuestion();
@@ -65,6 +74,9 @@ public class QuestionManager : MonoBehaviour
         currentQuestion = remainingQuestions[randomIndex];
         remainingQuestions.RemoveAt(randomIndex);
 
+        Debug.Log("Showing question: " + currentQuestion.questionText);
+        Debug.Log("Correct index: " + currentQuestion.correctIndex);
+
         questionText.alignment = originalAlignment;
         questionText.color = Color.white;
         questionText.text = currentQuestion.questionText;
@@ -81,12 +93,12 @@ public class QuestionManager : MonoBehaviour
                 answerTexts[i].text = currentQuestion.answers[i];
         }
 
-        // Show panel and pause game
         if (questionPanel != null)
             questionPanel.SetActive(true);
 
         Time.timeScale = 0f;
         questionActive = true;
+        Debug.Log("questionActive = true");
     }
 
     private void HideQuestion()
@@ -97,6 +109,8 @@ public class QuestionManager : MonoBehaviour
 
     public void Answer(int index)
     {
+        Debug.Log("Answer clicked. Index: " + index + " | questionActive: " + questionActive);
+
         if (!questionActive) return;
 
         questionActive = false;
@@ -111,13 +125,38 @@ public class QuestionManager : MonoBehaviour
 
         if (index == currentQuestion.correctIndex)
         {
-            questionText.text = "Correct!";
-            questionText.color = Color.green;
+            Debug.Log("Correct clicked");
+            correctStreak++;
+
+            if (correctStreak >= 3)
+            {
+                questionText.text = "Correct! +1 Life!";
+                questionText.color = Color.green;
+                GameManager.Instance.AddLife();
+                correctStreak = 0;
+            }
+            else
+            {
+                questionText.text = "Correct!";
+                questionText.color = Color.green;
+            }
+
             GameManager.Instance.IncreaseScore();
         }
         else
         {
-            questionText.text = "Wrong! Answer: " + currentQuestion.answers[currentQuestion.correctIndex];
+            Debug.Log("Wrong clicked. Correct answer: " + currentQuestion.answers[currentQuestion.correctIndex]);
+            correctStreak = 0;
+            GameManager.Instance.DeductLife();
+
+            if (GameManager.Instance.lives <= 0)
+            {
+                questionText.text = "Wrong! Game Over!\nAnswer: " + currentQuestion.answers[currentQuestion.correctIndex];
+            }
+            else
+            {
+                questionText.text = "Wrong! -1 Life!\nAnswer: " + currentQuestion.answers[currentQuestion.correctIndex];
+            }
             questionText.color = Color.red;
         }
 
@@ -128,6 +167,14 @@ public class QuestionManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(2f);
         HideQuestion();
-        Time.timeScale = 1f;
+
+        if (GameManager.Instance.lives <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 }
